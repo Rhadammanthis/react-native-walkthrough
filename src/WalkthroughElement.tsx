@@ -37,13 +37,9 @@ const WalkthroughElement: FunctionComponent<Props> = props => {
           },
         };
 
-        // Remove the original callback to avoid overwriting the previous one
-        delete props.tooltipProps?.onClose;
-
         const tooltipProps: TooltipProps = {
           ...defaultTooltipProps,
           ...currentElement.tooltipProps,
-          ...props.tooltipProps,
         };
 
         return (
