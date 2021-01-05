@@ -1,4 +1,5 @@
 import React, { FunctionComponent, ReactNode, ReactElement } from 'react';
+import { GestureResponderEvent } from 'react-native';
 import Tooltip, { TooltipChildrenContext, TooltipProps } from 'react-native-walkthrough-tooltip';
 
 import { WalkthroughContext } from './ContextWrapper';
@@ -29,11 +30,14 @@ const WalkthroughElement: FunctionComponent<Props> = props => {
           isVisible: elementId === currentElement.id,
           content: props.content || currentElement.content,
           placement: currentElement.placement || defaultPlacement,
-          onClose: () => {
+          onClose: (event: GestureResponderEvent) => {
             goToNext();
+            props?.tooltipProps?.onClose?.(event);
             currentElement.onClose?.();
           },
         };
+
+        delete props.tooltipProps?.onClose;
 
         const tooltipProps: TooltipProps = {
           ...defaultTooltipProps,
